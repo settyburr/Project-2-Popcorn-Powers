@@ -46,8 +46,8 @@ const Home = () => {
             {
                 !loginCheck ? (
                     <div className='login-notice'>
-                        <h1>
-                            Login to view all your friends!
+                        <h1 id="login-to-view">
+                            Login to search for Marvel Charcters!
                         </h1>
                     </div>
                 ) : (

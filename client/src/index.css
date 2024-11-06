@@ -36,6 +36,17 @@ h1 {
   font-size: 2em;
   margin: 0.67em 0;
 }
+#popcorn-title {
+  color: red;
+}
+#navbar {
+  background-color: black;
+}
+#login-to-view {
+  text-align: center;
+  margin-top: 300px;
+}
+
 
 /* Grouping content
    ========================================================================== */
@@ -982,8 +993,8 @@ a:hover {
   border-radius: 0.3rem;
   border: 1px solid transparent;
   outline: none;
-  color: #1a1a1a;
-  background-color: #aeaeae;
+  color: white;
+  background-color: red;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
@@ -1011,10 +1022,7 @@ a:hover {
   text-align: center;
 }
 
-.btn.btn-primary {
-  background-color: #2d3e50;
-  color: #d9e9e8;
-}
+
 
 .btn.btn-primary:hover {
   background-color: #57779a;
@@ -1075,7 +1083,7 @@ a:hover {
 }
 
 .btn.btn-link {
-  background-color: #1b89bc;
+  background-color: #bc7c1b;
   color: #ffffff;
 }
 

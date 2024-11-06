@@ -12,6 +12,11 @@ export const authenticateToken = (
 ) => {
   const authHeader = req.headers.authorization;
 
+  // function to skip the authenticateToken function
+  console.log(req.path, req.method);
+  if (req.path === "/users" && req.method === "POST") {
+    return next(); 
+  };
   if (authHeader) {
     const token = authHeader.split(' ')[1];
 

@@ -34,6 +34,11 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 // POST /users - Create a new user
+// { How to add new users in insommnia
+// "username": "SethBurrow",
+// "email": "sethb@1234.com",
+// "password": "Helloworld"
+// } 
 router.post('/', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {

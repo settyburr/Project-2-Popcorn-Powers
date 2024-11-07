@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react'
 
 import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
@@ -9,21 +10,43 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filterUsers = users ? users.filter((user) => 
+        user.username?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    : [];
     return (
         <>
             <h2 className="pb-5">
                Hey {auth.getProfile().username}, search your favorite marvel characters!
             </h2>
-            {users && users.map((user) => (
-                <div className="row align-center mb-5" key={user.id}>
-                    <div className="col-md-6">
-                        <h3>{user.id}. {user.username}</h3>
+
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Search Charcters..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="form-control"
+                />
+            </div>
+
+            {filterUsers.length > 0 ? (
+                filterUsers.map((user) =>(
+                    <div className='row align-center mb-5' key={user.id}>
+                        <div className='col-mb-5'>
+                            <h3>{user.id}. {user.username}</h3>
+                        </div>
                     </div>
-                    <div className="col-md-6">
-                        <h4><a href={`mailto:${user.email}`}>{user.email}</a></h4>
-                    </div>
-                </div>
-            ))}
+                ))
+            ) : (
+                <p>No users found. Try a different search!</p>
+            )}
         </>
     );
 };

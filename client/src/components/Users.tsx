@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import MarvelService from '../../../server/src/service/marvelService';
 
 // import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
@@ -9,6 +9,9 @@ interface MarvelCharacter {
     id: number;
     name: string;
     description: string;
+    series: string[];
+    events: string[];
+    comics: string[];
     thumbnail: {
         path: string;
         extension: string;
@@ -16,16 +19,16 @@ interface MarvelCharacter {
 }
 
 const UserList: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [characters, setCharacters] = useState<MarvelCharacter[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
     useEffect(() => {
-        if(searchTerm === ""){
+        if(searchTerm.trim() === "") {
             setCharacters([]);
             return;
         }
@@ -33,16 +36,33 @@ const UserList: React.FC = () => {
         const delayDebounceFn = setTimeout(async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/api/marvel-characters', {
-                    params: { nameStartsWith: searchTerm },
-                });
-                setCharacters(response.data.data.results);
+               const heroDesc = await MarvelService.getHeroDesc(searchTerm);
+               const heroComics = await MarvelService.getHeroComics(searchTerm);
+               const heroEvents = await MarvelService.getHeroEvents(searchTerm);
+               const heroSeries = await MarvelService.getHeroSeries(searchTerm);
+
+               setCharacters([
+                {
+                    id: 1,
+                    name: searchTerm,
+                    description: heroDesc,
+                    series: heroSeries,
+                    comics: heroComics,
+                    events: heroEvents,
+                    thumbnail: {
+                        path: '.path to picture',
+                        extension: 'jpg',
+                    },
+                },
+               ]);
             } catch (error) {
-                    console.error("Error fetching Marvel characters:", error);
+                console.error("Error fetching Marvel characters", error);
             } finally {
                 setLoading(false);
             }
         }, 500);
+        
+            
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchTerm]);

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
-import marvelService from '../../service/marvelService';
+import marvelService from '../../service/marvelService.js';
 
 router.get('/hero/:name/comics', async (req, res) => {
     const { name } = req.params;
@@ -10,18 +10,14 @@ router.get('/hero/:name/comics', async (req, res) => {
         // Fetch all relevant data using the MarvelService
         const description = await marvelService.getHeroDesc(name);
         const comics = await marvelService.getHeroComics(name);
-
+        // console.log(description);
+        // console.log(comics);
         
-        // Render the hero page with the data (using a template engine)
-        res.render('hero', { 
-            name, 
-            description,
-            comics,
-        });
+    return res.json({description, comics})
 
     } catch (error) {
         console.error('Error fetching hero details:', error);
-        res.status(500).send('Something went wrong!');
+        return res.status(500).json('Something went wrong!');
     }
 });
 

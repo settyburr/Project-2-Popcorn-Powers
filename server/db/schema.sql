@@ -1,25 +1,6 @@
  DROP DATABASE if EXISTS
 DROP DATABASE IF EXISTS popcornpowers_db;
-\c popcornpowers_db
- CREATE DATABASE
-CREATE DATABASE popcornpowers_db; (
-id SERIAL PRIMARY KEY,
-popcornpowers_db VARCHAR(100) UNIQUE NOT NULL,
-);
 
-CREATE TABLE favorites (
-id SERIAL PRIMARY KEY,
-title VARCHAR 
-events VARCHAR (30) UNIQUE NOT NULL,
-comics VARCHAR (30) NULL,
-bio VARCHAR (1)
-);
-
-CREATE TABLE Series (
-id SERIAL PRIMARY KEY,
-Series VARCHAR (30)
-FOREIGN KEY Series (id)
-
-)
-
+-- CREATE DATABASE
+CREATE DATABASE popcornpowers_db;
 

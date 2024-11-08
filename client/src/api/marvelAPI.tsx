@@ -1,5 +1,6 @@
 
 export const retrieveHeros = async (searchTerm: string) => {
+
   try {
     const response = await fetch(`/api/marvel/hero/${searchTerm}/comics`);
 
@@ -46,5 +47,4 @@ export const retrieveSeries = async (searchTerm:string) => {
     return [];
   }
 };
-
 

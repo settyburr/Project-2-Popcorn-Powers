@@ -1,22 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import { retrieveSeries, retrieveHeros, retrieveEvents } from '../api/marvelAPI';
+
 
 // import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
 
-interface MarvelCharacter {
-    id: number;
-    name: string;
-    description: string;
-    series: string[];
-    events: string[];
-    comics: string[];
-    thumbnail: {
-        path: string;
-        extension: string;
-    };
-}
+// interface MarvelCharacter {
+//     id: number;
+//     name: string;
+//     description: string;
+//     series: string[];
+//     events: string[];
+//     comics: string[];
+//     thumbnail: {
+//         path: string;
+//         extension: string;
+//     };
+// }
 
 const UserList: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");

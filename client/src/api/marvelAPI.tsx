@@ -1,5 +1,5 @@
 
-const retrieveHeros = async () => {
+const retrieveComics = async () => {
   try {
     const response = await fetch('/api/marvel/hero/:heroName/comics');
 
@@ -48,5 +48,5 @@ const retrieveSeries = async () => {
 };
 
 export { retrieveSeries };
-export { retrieveHeros };
+export { retrieveComics };
 export { retrieveEvents };

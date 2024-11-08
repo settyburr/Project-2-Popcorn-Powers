@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const SeriesPage = () => {
     const userIds = ['Spiderman', 'Iron Man', 'Deadpool', 'Captain Marvel']; // Example list of hero names
 
-    const [users, setUsers] = useState([]);
+    const [series, setSeries] = useState([]);
     const [title, setTitle] = useState('Marvel Universe'); 
 
     // Creates the audio object outside the handleClick function
@@ -12,9 +12,9 @@ const SeriesPage = () => {
     // Function to fetch users (or heroes)
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:3000/series');
+            const response = await fetch('/hero/deadpool/series');
             const data = await response.json();
-            setUsers(data); 
+            setSeries(data); 
         } catch (error) {
             console.error("Error fetching users:", error);
         }
@@ -31,7 +31,8 @@ const SeriesPage = () => {
     
     useEffect(() => {
         fetchUsers();
-    }, []);
+        console.log(series)
+    }, [series]);
 
     return (
         
@@ -55,10 +56,10 @@ const SeriesPage = () => {
             
 
             <ul>
-                {users.map((user) => (
-                    <li key={user.id}>{user.name}</li>
+                {/* {series.map((series) => (
+                    <li key={series.id}>{.name}</li>
 
-                ))}
+                ))} */}
             </ul>
         </div>
     );

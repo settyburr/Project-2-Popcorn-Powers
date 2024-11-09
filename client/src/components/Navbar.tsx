@@ -29,19 +29,18 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link" to='/login'>Login</Link>
-                
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="index.html">Bio</a>
+                <Link className="nav-link" to='/comicspage'>Comics</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Events</a>
+                <Link className="nav-link" to='/eventspage'>Events</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="index3.html">Movie</a>
+                <Link className="nav-link" to='/favoritespage'>Favorites</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="index3.html">Comic</a>
+                <Link className="nav-link" to='/seriesspage'>Series</Link>
               </li>
             </ul>
           </div>

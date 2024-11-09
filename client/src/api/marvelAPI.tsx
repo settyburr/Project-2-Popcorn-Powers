@@ -1,7 +1,8 @@
 
-const retrieveComics = async () => {
+export const retrieveHeros = async (searchTerm: string) => {
+
   try {
-    const response = await fetch('/api/marvel/hero/:heroName/comics');
+    const response = await fetch(`/api/marvel/hero/${searchTerm}/comics`);
 
     if (!response.ok) {
       throw new Error('invalid user API response, check network tab!');
@@ -15,9 +16,9 @@ const retrieveComics = async () => {
   }
 };
 
-const retrieveEvents = async () => {
+export const retrieveEvents = async (searchTerm:string) => {
   try {
-    const response = await fetch('/api/marvel/hero/:heroName/events');
+    const response = await fetch(`/api/marvel/hero/${searchTerm}/events`);
 
     if (!response.ok) {
       throw new Error('invalid user API response, check network tab!');
@@ -31,9 +32,9 @@ const retrieveEvents = async () => {
   }
 };
 
-const retrieveSeries = async () => {
+export const retrieveSeries = async (searchTerm:string) => {
   try {
-    const response = await fetch('/api/marvel/hero/:heroName/series');
+    const response = await fetch(`/api/marvel/hero/${searchTerm}/series`);
 
     if (!response.ok) {
       throw new Error('invalid user API response, check network tab!');
@@ -47,6 +48,3 @@ const retrieveSeries = async () => {
   }
 };
 
-export { retrieveSeries };
-export { retrieveComics };
-export { retrieveEvents };

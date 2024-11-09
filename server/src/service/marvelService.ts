@@ -11,6 +11,7 @@ import crypto from 'crypto';
 import axios from 'axios';
 
 dotenv.config();
+console.log(process.env)
 
 
 

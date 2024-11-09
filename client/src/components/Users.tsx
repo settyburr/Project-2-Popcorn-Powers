@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import {retrieveSeries, retrieveComics, retrieveEvents} from '../api/marvelAPI.js';
+
+import {retrieveSeries, retrieveComics, retrieveHeros, retrieveEvents} from '../api/marvelAPI.js';
 import MarvelService from '../../../server/src/service/marvelService';
 import { MarvelCharacter } from '../interfaces/HeroData';
 
 // import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
+import { MarvelCharacter } from '../interfaces/HeroData';
 
 // interface MarvelCharacter {
 //     id: number;
@@ -30,7 +32,7 @@ const UserList: React.FC = () => {
     };
 
     useEffect(() => {
-        if(searchTerm.trim() === "") {
+        if (searchTerm.trim() === "") {
             setCharacters([]);
             return;
         }
@@ -38,33 +40,33 @@ const UserList: React.FC = () => {
         const delayDebounceFn = setTimeout(async () => {
             setLoading(true);
             try {
-               const heroDesc = await MarvelService.getHeroDesc(searchTerm);
-               const heroComics = await MarvelService.getHeroComics(searchTerm);
-               const heroEvents = await MarvelService.getHeroEvents(searchTerm);
-               const heroSeries = await MarvelService.getHeroSeries(searchTerm);
+                //    const heroDesc = await MarvelService.getHeroDesc(searchTerm);
+                const heroComics = await retrieveHeros(searchTerm);
+                const heroEvents = await retrieveEvents(searchTerm);
+                const heroSeries = await retrieveSeries(searchTerm);
 
-               setCharacters([
-                {
-                    id: 1,
-                    name: searchTerm,
-                    description: heroDesc,
-                    series: heroSeries,
-                    comics: heroComics,
-                    events: heroEvents,
-                    thumbnail: {
-                        path: '.path to picture',
-                        extension: 'jpg',
+                setCharacters([
+                    {
+                        id: 1,
+                        name: searchTerm,
+                        description: searchTerm,
+                        series: heroSeries,
+                        comics: heroComics,
+                        events: heroEvents,
+                        thumbnail: {
+                            path: '.path to picture',
+                            extension: 'jpg',
+                        },
                     },
-                },
-               ]);
+                ]);
             } catch (error) {
                 console.error("Error fetching Marvel characters", error);
             } finally {
                 setLoading(false);
             }
         }, 500);
-        
-            
+
+
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchTerm]);
@@ -72,7 +74,7 @@ const UserList: React.FC = () => {
     return (
         <>
             <h2 className="pb-5">
-               Hey {auth.getProfile().username}, search your favorite marvel characters!
+                Hey {auth.getProfile().username}, search your favorite marvel characters!
             </h2>
 
             <div className="mb-4">
@@ -85,32 +87,32 @@ const UserList: React.FC = () => {
                 />
             </div>
 
-    {loading ? (
-        <p>Loading...</p>
-    ) : (
-        characters.length > 0 ? (
-            characters.map((character) => (
-                <div className='row align-center mb-5' key={character.id}>
-                    <div className='col-md-6'>
-                        <h3>{character.name}</h3>
-                        <p>{character.description || "No description available."}</p>
-                    </div>
-                    <div className='col-md-6'>
-                        <img
-                            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                            alt={character.name}
-                            style={{width: '100px', height: '100px'}}
-                        />
-                    </div>
-                </div>
-            ))
-        ) : (
-            <p>No characters found. Try a different search!</p>
-        )
-    )}
-    </>
-);
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                characters.length > 0 ? (
+                    characters.map((character) => (
+                        <div className='row align-center mb-5' key={character.id}>
+                            <div className='col-md-6'>
+                                <h3>{character.name}</h3>
+                                <p>{character.description || "No description available."}</p>
+                            </div>
+                            <div className='col-md-6'>
+                                <img
+                                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                                    alt={character.name}
+                                    style={{ width: '100px', height: '100px' }}
+                                />
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No characters found. Try a different search!</p>
+                )
+            )}
+        </>
+    );
 };
 
-    
+
 export default UserList;

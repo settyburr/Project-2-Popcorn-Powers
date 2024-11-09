@@ -1,0 +1,11 @@
+@font-face {
+    font-family: imported;
+    src: url(./SuperBrigadeGradient-V4qA6.otf);
+}
+
+#root{
+font-family:imported;
+font-size : 35px;
+margin-left: 10%;
+margin-top: 10%;
+}

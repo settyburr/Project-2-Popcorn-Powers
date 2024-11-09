@@ -6,6 +6,7 @@ import { retrieveSeries, retrieveHeros, retrieveEvents } from '../api/marvelAPI'
 
 // import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
+import { MarvelCharacter } from '../interfaces/HeroData';
 
 // interface MarvelCharacter {
 //     id: number;

@@ -54,7 +54,7 @@ const SeriesPage = () => {
             <h1>{title}</h1>
 
             {/* "Search" button to update title only, without playing audio */}
-            <button onClick={handleClick}>Search</button>
+            <button onClick={handleClick}>Series</button>
                 {/* Render the list of users */}
                 <h2>The Avengers</h2>
                 <h2>Spider-Man</h2>

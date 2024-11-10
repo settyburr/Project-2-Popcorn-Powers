@@ -27,47 +27,27 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {/* Add links from client/src/main.tsx from router*/}
               <li className="nav-item">
-                <Link className="nav-link" to='/login'>Login</Link>
+                <Link className="nav-link" to='/login'>Login</Link> 
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/comicspage'>Comics</Link>
+                <Link className="nav-link" to='/comics'>Comics</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/eventspage'>Events</Link>
+                <Link className="nav-link" to='/events'>Events Page</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/favoritespage'>Favorites</Link>
+                <Link className="nav-link" to='/favorites'>Favorites</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/seriesspage'>Series</Link>
+                <Link className="nav-link" to='/series'>Series</Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
       </div>
-
-    // <div id='navbar' className='display-flex justify-space-between align-center py-2 px-5 mint-green'>
-    //   <h1 id='popcorn-title'>Popcorn Powers</h1>
-    //   <div>
-    //     {!loginCheck ? (
-    //       <button className='btn' type='button'>
-    //         <Link to='/login'>Login</Link>
-    //       </button>
-    //     ) : (
-    //       <button
-    //         className='btn'
-    //         type='button'
-    //         onClick={() => {
-    //           auth.logout();
-    //         }}
-    //       >
-    //         Logout
-    //       </button>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

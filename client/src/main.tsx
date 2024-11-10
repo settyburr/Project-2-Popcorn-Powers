@@ -4,10 +4,13 @@ import './index.css';
 
 import App from './App.tsx';
 import SeriesPage from './pages/SeriesPage.tsx';
+import ComicsPage from './pages/ComicsPage.tsx';
+import EventsPage from './pages/EventsPage.tsx';
+import FavoritesPage from './pages/FavoritesPage.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
-
+// Create router to add pages
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,6 +29,18 @@ const router = createBrowserRouter([
         path: '/series',
         element: <SeriesPage />,
       },
+      {
+        path: '/events', 
+        element: <EventsPage />,
+      },
+      {
+        path: '/comics', 
+        element: <ComicsPage />,
+      }, 
+      {
+        path: '/favorites', 
+        element: <FavoritesPage />,
+      }
     ],
   },
 ]);

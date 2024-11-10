@@ -84,6 +84,16 @@ const SeriesPage = () => {
                     ))}
                 </ul>
             </div>
+            {/* Add temp image to the Aside part of the page */}
+             <aside>
+                <div className="containerImage">
+                    <img src="./src/assets/images/spiderman4k.jpg" alt="Spiderman Image"/>
+                </div>
+             </aside>
+            {/*Add footer for title page */}
+            <footer>
+            <h1 className="PageTitle">SERIES</h1>
+            </footer>
         </div>
     );
 };

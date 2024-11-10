@@ -22,23 +22,49 @@ body {
   background-image:url("../src/assets/backgrounds/Project_Screen5.png");
 }
 
+
 /**
  * ADDED: Ensure that the Character is displayed at the top Right. 
  */
  section {
   position: fixed;
-  right: 25%;
+  right: 15%;
   color: white;
+  margin-top: 5px;
 }
 
 
 /**
  * ADDED: Ensure that the Character image is displayed at the left center.
  */
-aside {
+/* aside {
   position: fixed;
-  margin: 5% 5% 5% 5%; 
-  color: white;
+  margin-top: 10%;
+  margin-left: 0%;
+} */
+.container {
+  width: 450px;
+  height: 500px;
+}
+.container img{
+  max-width: 100%;
+  max-height:100%;
+  display: block; 
+}
+/**
+ * ADDED: Ensure that the Character image is displayed at the login page.
+ */
+.LoginContainer {
+  width: 100px;
+  height: 200px;
+  float: left;
+  width: 25%;
+  padding: 5px;
+}
+.LoginContainer img{
+  max-width: 100%;
+  max-height:100%;
+  display: block; 
 }
 
 /**
@@ -53,6 +79,10 @@ aside {
   color: white;
  }
 
+ .PageTitle h1{
+  font-size:100px;
+ }
+
 /**
  * Render the `main` element consistently in IE.
  */
@@ -61,12 +91,21 @@ main {
 }
 
 /**
+ * Render the `label` element with color white text.
+ */
+label {
+  color: white;
+}
+
+/**
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
+ * Change font color to white
  */
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  color: white;
 }
 #popcorn-title {
   color: red;

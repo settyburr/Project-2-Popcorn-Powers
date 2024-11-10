@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import {retrieveSeries, retrieveComics, retrieveHeros, retrieveEvents} from '../api/marvelAPI.js';
+import {retrieveSeries, retrieveHeros, retrieveEvents} from '../api/marvelAPI.js';
 import MarvelService from '../../../server/src/service/marvelService';
 import { MarvelCharacter } from '../interfaces/HeroData';
 

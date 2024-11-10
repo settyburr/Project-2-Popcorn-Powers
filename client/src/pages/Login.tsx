@@ -60,6 +60,22 @@ const Login = () => {
           </button>
         </div>
       </form>
+      {/* Add temp image to the Aside part of the page */}
+      <aside>
+      <div className="LoginContainer">
+       <img src="./src/assets/images/IronMan.jpg" alt="Iron Man Image"/>
+      </div>
+      <div className="LoginContainer">
+       <img src="./src/assets/images/CaptainMarvel.jpg" alt="Captain Marvel Image"/>
+      </div>
+      <div className="LoginContainer">
+       <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+      </div>
+      <div className="LoginContainer">
+       <img src="./src/assets/images/spidermanjacket.jpg" alt="Spiderman Image"/>
+      </div>
+      </aside>
+      <section className="APIDetails"></section>
     </div>
   );
 };

@@ -3,8 +3,8 @@ const router = Router();
 
 import marvelService from '../../service/marvelService.js';
 
-router.get('/hero/:name/comics', async (req, res) => {
-    const { name } = req.params;
+router.get('/hero/:name/comics', async (_req, res) => {
+    const { name } = _req.params;
 
     try {
         // Fetch all relevant data using the MarvelService

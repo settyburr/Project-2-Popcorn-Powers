@@ -1,28 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
-import {retrieveSeries, retrieveHeros, retrieveEvents} from '../api/marvelAPI.js';
-import MarvelService from '../../../server/src/service/marvelService';
+import {retrieveSeries, retrieveComics, retrieveEvents} from '../api/marvelAPI.js';
 import { MarvelCharacter } from '../interfaces/HeroData';
-
-// import type { UserData } from "../interfaces/UserData";
 import auth from '../utils/auth';
-import { MarvelCharacter } from '../interfaces/HeroData';
 
-// interface MarvelCharacter {
-//     id: number;
-//     name: string;
-//     description: string;
-//     series: string[];
-//     events: string[];
-//     comics: string[];
-//     thumbnail: {
-//         path: string;
-//         extension: string;
-//     };
-// }
 
-const UserList: React.FC = () => {
+const Search: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [characters, setCharacters] = useState<MarvelCharacter[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -41,9 +24,10 @@ const UserList: React.FC = () => {
             setLoading(true);
             try {
                 //    const heroDesc = await MarvelService.getHeroDesc(searchTerm);
-                const heroComics = await retrieveHeros(searchTerm);
+                const heroComics = await retrieveComics(searchTerm);
                 const heroEvents = await retrieveEvents(searchTerm);
                 const heroSeries = await retrieveSeries(searchTerm);
+                
 
                 setCharacters([
                     {
@@ -115,4 +99,4 @@ const UserList: React.FC = () => {
 };
 
 
-export default UserList;
+export default Search;

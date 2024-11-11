@@ -8,7 +8,7 @@ import ComicsPage from './pages/ComicsPage.tsx';
 import EventsPage from './pages/EventsPage.tsx';
 import FavoritesPage from './pages/FavoritesPage.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
-import Home from './pages/Home.tsx';
+// import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 // Create router to add pages
 const router = createBrowserRouter([
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Login />,
       },
       {
         path: '/login',
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/comics', 
-        element: <ComicsPage />,
+        element: <ComicsPage/>,
       }, 
       {
         path: '/favorites', 

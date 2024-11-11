@@ -1,18 +1,9 @@
-// interface MarvelHero {
-//     id: string;
-//     name: string;
-//     description: string;
-//     comics: any[];
-//     events: any[];
-//     series: any[];
-// }
+
 import dotenv from 'dotenv';
 import crypto from 'crypto';
 import axios from 'axios';
 
 dotenv.config();
-console.log(process.env)
-
 
 
 class MarvelService {
@@ -63,21 +54,21 @@ class MarvelService {
     async getHeroComics(name: string): Promise<any[]> {
         const url = `${this.buildMarvelCharInfo(name)}`;
         const hero = await this.fetchMarvelData(url);
-        return hero.comics.items || [];
+        return hero.comics?.items || [];
     }
 
     // Fetch Hero Events
     async getHeroEvents(name: string): Promise<any[]> {
-        const url = `${this.buildMarvelCharInfo(name)}&limit=5&fields=events`;
+        const url = `${this.buildMarvelCharInfo(name)}`;
         const hero = await this.fetchMarvelData(url);
-        return hero.events.items || [];
+        return hero.events?.items || [];
     }
 
     // Fetch Hero Series
     async getHeroSeries(name: string): Promise<any[]> {
-        const url = `${this.buildMarvelCharInfo(name)}&limit=5&fields=series`;
+        const url = `${this.buildMarvelCharInfo(name)}`;
         const hero = await this.fetchMarvelData(url);
-        return hero.series.items || [];
+        return hero.series?.items || [];
     }
 }
 

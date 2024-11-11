@@ -84,7 +84,7 @@ const EventsPage = () => {
      {/* Add temp image to the Aside part of the page */}
      <aside>
        <div className="containerImage">
-         <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+         <img src="./src/assets/images/CaptainMarvel.jpg" alt="Captain Marvel Image"/>
        </div>
      </aside>
    </div>

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { retrieveSeries } from "../api/marvelAPI";
 import { MarvelCharacter } from "../interfaces/HeroData";
+import sound from "../assets/backgroundSound/theme.ogg";
 import ErrorPage from "./ErrorPage";
 
 const SeriesPage = () => {
@@ -10,11 +11,24 @@ const SeriesPage = () => {
  const [series, setSeries] = useState<string[]>([]);
  const [loading, setLoading] = useState<boolean>(false);
  const [error, setError] = useState<string | null>(null);
+ const [isPlaying, setIsPlaying] = useState(false); // To track audio play state
+ const audioRef = useRef(null); // Ref to the audio element
 
  // Function to handle the search term change
  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
    setSearchTerm(event.target.value);
  };
+ // Toggle audio play/pause when the "Play Sound" button is clicked
+ const toggleAudioPlayback = () => {
+  if (audioRef.current) {
+      if (isPlaying) {
+          audioRef.current.pause();
+      } else {
+          audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+  }
+};
 
  // Function to handle the search button click
  const handleSearchClick = async () => {
@@ -45,7 +59,15 @@ const SeriesPage = () => {
  return (
    <div>
      <h1>Marvel Series Search</h1>
-     
+      {/* Audio controls */}
+      <div>
+                <button onClick={toggleAudioPlayback}>
+                    {isPlaying ? 'Pause Sound' : 'Avengers Assemble'}
+                </button>
+                <audio ref={audioRef} preload="auto" loop>
+                    <source src={sound} type="audio/ogg" />
+                </audio>
+            </div>
      {/* Search bar */}
      <input
        type="text"
@@ -84,7 +106,7 @@ const SeriesPage = () => {
      {/* Add temp image to the Aside part of the page */}
      <aside>
        <div className="containerImage">
-         <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+         <img src="./src/assets/images/spiderman4k.jpg" alt="Spiderman Image"/>
        </div>
      </aside>
    </div>

@@ -118,6 +118,44 @@ h1 {
   margin-top: 300px;
 }
 
+/**
+ * Table formatting
+ */
+.containerFAV{
+  width:200px;
+  height:200px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+.containerFAV img{
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+ table {
+  width: 100%;                     /* Full width of the parent */
+  border-collapse: collapse;       /* Collapses the borders */
+  align-items: center;
+}
+
+th, td {
+  border: 1px solid #cccccc;       /* borders */
+  text-align: left;                /* Left alignment for text */
+}
+
+th {
+  background-color: #581515;       /* Bootstrap blue for header */
+  color: rgb(168, 130, 130);                    /* White text color for header */
+}
+
+tr:nth-child(even) {
+  background-color: #721919;       /* Light grey for even rows */
+}
+
+tr:hover {
+  background-color: #bdaaaa;       /* Light grey background on hover */
+}
 
 /* Grouping content
    ========================================================================== */

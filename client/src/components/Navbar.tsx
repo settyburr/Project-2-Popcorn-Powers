@@ -35,7 +35,7 @@ const Navbar = () => {
                 <Link className="nav-link" to='/comics'>Comics</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to='/events'>Events Page</Link>
+                <Link className="nav-link" to='/events'>Events</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to='/series'>Series</Link>

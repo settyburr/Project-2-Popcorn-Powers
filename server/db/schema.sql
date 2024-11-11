@@ -34,3 +34,15 @@ CREATE DATABASE popcornpowers_db;
 --     FOREIGN KEY (series_id) REFERENCES favorites(id) ON DELETE SET NULL,
 --     FOREIGN KEY (comic_id) REFERENCES series(id) ON DELETE SET NULL
 -- );
+
+-- CREATE TABLE characters (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     character_name VARCHAR(255),
+--     description TEXT,
+--     comic_name VARCHAR(255),
+--     comic_link VARCHAR(255),
+--     series_name VARCHAR(255),
+--     series_link VARCHAR(255),
+--     events_name VARCHAR(255),
+--     events_link VARCHAR(255)
+-- );

@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { retrieveUsers } from "../api/userAPI";
 import type { UserData } from "../interfaces/UserData";
 import ErrorPage from "./ErrorPage";
-import UserList from '../components/Users';
+import Search from '../components/Users';
 import auth from '../utils/auth';
 
 const Home = () => {
@@ -10,6 +10,7 @@ const Home = () => {
     const [users, setUsers] = useState<UserData[]>([]);
     const [error, setError] = useState(false);
     const [loginCheck, setLoginCheck] = useState(false);
+    console.log(users);
 
     useEffect(() => {
         if (loginCheck) {
@@ -50,9 +51,11 @@ const Home = () => {
                             Login to search for Marvel Charcters!
                         </h1>
                     </div>
-                ) : (
-                    <UserList users={users} />
-                )}
+                )
+                 : (
+                    <Search/>
+                )
+                }
         </>
     );
 };

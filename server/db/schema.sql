@@ -5,32 +5,32 @@ DROP DATABASE IF EXISTS popcornpowers_db;
 CREATE DATABASE popcornpowers_db;
 
 
-\c popcornpowers_db
+-- \c popcornpowers_db
 
--- CREATE TABLE for popcornpowers 
-CREATE TABLE popcornpowers (
-    id SERIAL PRIMARY KEY,
-    popcornpowers_name VARCHAR(30) UNIQUE NOT NULL
-);
+-- -- CREATE TABLE for popcornpowers 
+-- CREATE TABLE popcornpowers (
+--     id SERIAL PRIMARY KEY,
+--     popcornpowers_name VARCHAR(30) UNIQUE NOT NULL
+-- );
 
--- CREATE TABLE for favorites
-CREATE TABLE favorites (
-    id SERIAL PRIMARY KEY,
-    series VARCHAR(30) NULL,
-    comic VARCHAR(30) NULL, 
-    bio VARCHAR(200) UNIQUE NOT NULL,
-    popcornpowers_id INTEGER NOT NULL,
-    FOREIGN KEY (popcornpowers_id) REFERENCES popcornpowers(id) ON DELETE SET NULL
-);
+-- -- CREATE TABLE for favorites
+-- CREATE TABLE favorites (
+--     id SERIAL PRIMARY KEY,
+--     series VARCHAR(30) NULL,
+--     comic VARCHAR(30) NULL, 
+--     bio VARCHAR(200) UNIQUE NOT NULL,
+--     popcornpowers_id INTEGER NOT NULL,
+--     FOREIGN KEY (popcornpowers_id) REFERENCES popcornpowers(id) ON DELETE SET NULL
+-- );
 
--- CREATE TABLE for series/comics
-CREATE TABLE series (
-    id SERIAL PRIMARY KEY,
-    series_title VARCHAR(30) NOT NULL,
-    comic_name VARCHAR(30) NOT NULL,
-    comic_issue DECIMAL NOT NULL,
-    series_id INTEGER NOT NULL,
-    comic_id INTEGER, 
-    FOREIGN KEY (series_id) REFERENCES favorites(id) ON DELETE SET NULL,
-    FOREIGN KEY (comic_id) REFERENCES series(id) ON DELETE SET NULL
-);
+-- -- CREATE TABLE for series/comics
+-- CREATE TABLE series (
+--     id SERIAL PRIMARY KEY,
+--     series_title VARCHAR(30) NOT NULL,
+--     comic_name VARCHAR(30) NOT NULL,
+--     comic_issue DECIMAL NOT NULL,
+--     series_id INTEGER NOT NULL,
+--     comic_id INTEGER, 
+--     FOREIGN KEY (series_id) REFERENCES favorites(id) ON DELETE SET NULL,
+--     FOREIGN KEY (comic_id) REFERENCES series(id) ON DELETE SET NULL
+-- );

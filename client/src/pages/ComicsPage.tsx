@@ -25,10 +25,14 @@ const ComicsPage = () => {
 
     try {
       const data = await retrieveComics(searchTerm);
-      if (data && data.length > 0) {
-        const characterData = data[0]; // Assuming the first character is the desired one
+    
+      if (data.comics && data.comics.length > 0) {
+        let characterData = data; // Assuming the first character is the desired one
         setCharacter(characterData);
-        setComics(characterData.comics);
+        characterData = characterData.comics.map((character: { name: object; resourceURI: object}) => {
+          return character.name + "%" + character.resourceURI;
+        })
+        setComics(characterData);
       } else {
         setError('Character not found.');
       }
@@ -38,7 +42,7 @@ const ComicsPage = () => {
       setLoading(false);
     }
   };
-
+console.log(comics);
   return (
     <div>
       <h1>Marvel Comics Search</h1>
@@ -46,7 +50,7 @@ const ComicsPage = () => {
       {/* Search bar */}
       <input
         type="text"
-        placeholder="Search for a Marvel character..."
+        placeholder="Search for a Marvel char..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
@@ -69,15 +73,26 @@ const ComicsPage = () => {
           <h3>Comics:</h3>
           <ul>
             {comics.length > 0 ? (
-              comics.map((comic, index) => (
-                <li key={index}>{comic}</li>
-              ))
+              comics.map((comic, index) => {
+                return <li key={index}>{comic.split("%")[0]}  <a href={comic.split("%")[1]}>Link to comic</a></li>
+              })
             ) : (
               <p>No comics available for this character.</p>
             )}
           </ul>
         </div>
       )}
+      {/* Add temp image to the Aside part of the page */}
+      <aside>
+        <div className="containerImage">
+          <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+        </div>
+      </aside>
+    
+      {/* Add title of page to the footer */}
+      <footer>
+      <h1 className="PageTitle">COMICS</h1>
+      </footer>
     </div>
   );
 };

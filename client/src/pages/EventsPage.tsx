@@ -1,54 +1,96 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid'; // import the UUID function to store to favorites
 
 const EventsPage = () => {
   //default searchTerm
-  const searchTerm = ['Wolverine'];
-  const [events, setEvents] = useState([]);
-  const [title, setTitle] = useState('WELCOME TO POPCORN POWERS');
-
+  const [searchTerm, setSearchTerm]= useState(''); //initialize search button
+  const [events, setEvents] = useState([]); //Set events once available
+  const [title, setTitle] = useState('WELCOME TO POPCORN POWERS'); //Set new Message
+  const [favorites, setFavorites] = useState([]); //Store favorites
 
   //fetch users for events
-  const fetchUsers = async () => {
+  const fetchUsers = async (term: string) => {
+    if (!term) return; //ensure to return when there's no search term
     try {
-       // Join user IDs for the fetch call 
-       const promises = searchTerm.map(searchTerm =>
-        fetch(`/api/marvel/hero/${searchTerm}/events`)
-          .then(response => response.json())
-      );
-      const eventsData = await Promise.all(promises);
-
-      // Flatten the array of events data if it returns an array of arrays
-      // const flattenedEvents = eventsData.flat();
-      // setEvents(flattenedEvents);
-      // setTitle('Hero events recommended for ' + searchTerm.join(', '));
-    } catch (error){
+      const response = await fetch(`/api/marvel/hero/${term}/events`);
+      const eventsData = await response.json();
+      setEvents(eventsData);
+      setTitle('Hero events recommended for ' + term);
+    } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 
+  const handleSearchClick = () => {
+    fetchUsers(searchTerm);
+  };
+
+  // const handleFavoritesClick = async () => {
+  //   if (events.length === 0) {
+  //     alert("No events to add to favorites! Please search for events first.");
+  //     return;
+  //   }
+
+  //   const eventToFavorite = events[0]; // Modify as needed
+  //   const newFavorite = {
+  //     character_name: eventToFavorite.character_name || '',
+  //     series: eventToFavorite.series || '',
+  //     comic: eventToFavorite.comic || '',
+  //     bio: eventToFavorite.description || '',
+  //     popcornpowers_id: uuidv4(), // Use UUID for the popcornpowers_id
+  //   };
+
+  //   try {
+  //     const response = await fetch('/api/favorites', { // Adjust endpoint as needed
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(newFavorite),
+  //     });
+
+  //     if (response.ok) {
+  //       const savedFavorite = await response.json();
+  //       setFavorites([...favorites, savedFavorite]); // Update favorites state
+  //       alert("Added to favorites!");
+  //     } else {
+  //       throw new Error("Failed to add to favorites");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding to favorites:", error);
+  //   }
+  // };
 
 
 
   useEffect(() => {
-    fetchUsers();
     console.log(events);
-  }, []);
+  }, [events]);
 
 
   //HTML
   
   return (
     <div className='form-container'>
-      <section>
-        <h1> {title} </h1>
+      <section className="EventSection">
+      <h2> {title} </h2>
         {/* Add Search Prompt */}
-        <div class="input-group rounded">
-          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-          <span class="input-group-text border-0" id="search-addon">
-            <i class="fas fa-search">Search</i>
+        <div className="input-group rounded">
+          <input 
+            type="search" 
+            className="form-control rounded" 
+            placeholder="Search" 
+            aria-label="Search" 
+            aria-describedby="search-addon" 
+            onChange={(e)=>setSearchTerm(e.target.value)} //When input change, update search term
+          />
+          <span className="input-group-text border-0" id="search-addon" onClick={handleSearchClick}>
+            <i className="search">Search</i>
           </span>
         </div>
-        
+        <div>
+          <a href="https://www.marvel.com/characters">Marvel Characters Link</a>
+        </div>
         {/* <ul>
           {events.map(event => (
             <li key={event.id}>
@@ -71,16 +113,13 @@ const EventsPage = () => {
             </li>
           ))}
         </ul> */}
+        {/* <button onClick={handleFavoritesClick}>Favorites</button> */}
       </section>
       {/* Add temp image to the Aside part of the page */}
-      <aside>
-        <div className="containerImage">
+        <div className="containerEventImage">
           <img src="./src/assets/images/CaptainMarvel.jpg" alt="Captain Marvel Image"/>
         </div>
-      </aside>
-      <section className="APIDetails">
-        
-      </section>
+      
       {/* Add title of page to the footer */}
       <footer>
       <h1 className="PageTitle">EVENTS</h1>

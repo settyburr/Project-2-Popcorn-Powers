@@ -5,13 +5,13 @@ DROP DATABASE IF EXISTS popcornpowers_db;
 CREATE DATABASE popcornpowers_db;
 
 
-\c popcornpowers_db
+-- \c popcornpowers_db
 
--- CREATE TABLE for popcornpowers 
-CREATE TABLE popcornpowers (
-    id SERIAL PRIMARY KEY,
-    popcornpowers_name VARCHAR(30) UNIQUE NOT NULL
-);
+-- -- CREATE TABLE for popcornpowers 
+-- CREATE TABLE popcornpowers (
+--     id SERIAL PRIMARY KEY,
+--     popcornpowers_name VARCHAR(30) UNIQUE NOT NULL
+-- );
 
 -- CREATE TABLE for favorites
 CREATE TABLE favorites (
@@ -49,5 +49,6 @@ CREATE TABLE series (
 --     events_name VARCHAR(255),
 --     events_link VARCHAR(255)
 -- );
+
 
 

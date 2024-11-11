@@ -36,7 +36,7 @@ Once completely built, this application will function as a deployed app on Rende
 1. Clone the rep
 
 ```
-git clone https://github.com/404pandas/project-2-setup-guide.git
+git clone https://github.com/project-2-setup-guide.git
 ```
 
 2. Install dependencies
@@ -48,7 +48,7 @@ npm i
 3. Seed the database
 
 ```
-npm run schema from server/db
+npm run schema and seed from server/db
 ```
 
 4. Launch the app in development environment

@@ -1,131 +1,94 @@
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid'; // import the UUID function to store to favorites
+import { useState } from "react";
+import { retrieveEvents } from "../api/marvelAPI";
+import { MarvelCharacter } from "../interfaces/HeroData";
+import ErrorPage from "./ErrorPage";
 
 const EventsPage = () => {
-  //default searchTerm
-  const [searchTerm, setSearchTerm]= useState(''); //initialize search button
-  const [events, setEvents] = useState([]); //Set events once available
-  const [title, setTitle] = useState('WELCOME TO POPCORN POWERS'); //Set new Message
-  const [favorites, setFavorites] = useState([]); //Store favorites
+ // State to handle the search term, character data, loading, and errors
+ const [searchTerm, setSearchTerm] = useState('');
+ const [character, setCharacter] = useState<MarvelCharacter | null>(null);
+ const [events, setEvents] = useState<string[]>([]);
+ const [loading, setLoading] = useState<boolean>(false);
+ const [error, setError] = useState<string | null>(null);
 
-  //fetch users for events
-  const fetchUsers = async (term: string) => {
-    if (!term) return; //ensure to return when there's no search term
-    try {
-      const response = await fetch(`/api/marvel/hero/${term}/events`);
-      const eventsData = await response.json();
-      setEvents(eventsData);
-      setTitle('Hero events recommended for ' + term);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+ // Function to handle the search term change
+ const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   setSearchTerm(event.target.value);
+ };
 
-  const handleSearchClick = () => {
-    fetchUsers(searchTerm);
-  };
+ // Function to handle the search button click
+ const handleSearchClick = async () => {
+   if (!searchTerm) return; // Don't fetch if search term is empty
 
-  // const handleFavoritesClick = async () => {
-  //   if (events.length === 0) {
-  //     alert("No events to add to favorites! Please search for events first.");
-  //     return;
-  //   }
+   setLoading(true);
+   setError(null); // Reset error state before fetching
 
-  //   const eventToFavorite = events[0]; // Modify as needed
-  //   const newFavorite = {
-  //     character_name: eventToFavorite.character_name || '',
-  //     series: eventToFavorite.series || '',
-  //     comic: eventToFavorite.comic || '',
-  //     bio: eventToFavorite.description || '',
-  //     popcornpowers_id: uuidv4(), // Use UUID for the popcornpowers_id
-  //   };
+   try {
+     const data = await retrieveEvents(searchTerm);
+   
+     if (data.events && data.events.length > 0) {
+       let characterData = data; // Assuming the first character is the desired one
+       setCharacter(characterData);
+       characterData = characterData.events.map((character: { name: object; resourceURI: object}) => {
+         return character.name + "%" + character.resourceURI;
+       })
+       setEvents(characterData);
+     } else {
+       setError('Character not found.');
+     }
+   } catch (err) {
+     setError('An error occurred while fetching data.');
+   } finally {
+     setLoading(false);
+   }
+ };
+ return (
+   <div>
+     <h1>Marvel Events Search</h1>
+     
+     {/* Search bar */}
+     <input
+       type="text"
+       placeholder="Search for a Marvel char..."
+       value={searchTerm}
+       onChange={handleSearchChange}
+     />
+     
+     {/* Search button */}
+     <button onClick={handleSearchClick}>Search</button>
 
-  //   try {
-  //     const response = await fetch('/api/favorites', { // Adjust endpoint as needed
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(newFavorite),
-  //     });
+     {/* Show loading state */}
+     {loading && <p>Loading...</p>}
 
-  //     if (response.ok) {
-  //       const savedFavorite = await response.json();
-  //       setFavorites([...favorites, savedFavorite]); // Update favorites state
-  //       alert("Added to favorites!");
-  //     } else {
-  //       throw new Error("Failed to add to favorites");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding to favorites:", error);
-  //   }
-  // };
+     {/* Show error message */}
+     {error && <ErrorPage />}
 
+     {/* Show character details if available */}
+     {character && !loading && !error && (
+       <div>
+         <h2>{character.name}</h2>
+         <p>{character.description || 'No description available.'}</p>
 
-
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-
-
-  //HTML
-  
-  return (
-    <div className='form-container'>
-      <section className="EventSection">
-      <h2> {title} </h2>
-        {/* Add Search Prompt */}
-        <div className="input-group rounded">
-          <input 
-            type="search" 
-            className="form-control rounded" 
-            placeholder="Search" 
-            aria-label="Search" 
-            aria-describedby="search-addon" 
-            onChange={(e)=>setSearchTerm(e.target.value)} //When input change, update search term
-          />
-          <span className="input-group-text border-0" id="search-addon" onClick={handleSearchClick}>
-            <i className="search">Search</i>
-          </span>
-        </div>
-        <div>
-          <a href="https://www.marvel.com/characters">Marvel Characters Link</a>
-        </div>
-        {/* <ul>
-          {events.map(event => (
-            <li key={event.id}>
-              <h2>{event.title}</h2>
-              <p>{event.description}</p>
-              <p><strong>Resource URI:</strong> {event.resourceURI}</p>
-              {event.urls && event.urls.length > 0 && (
-                <div>
-                  <h4>Links:</h4>
-                  <ul>
-                    {event.urls.map((url, index) => (
-                      <li key={index}><a href={url.url}>{url.type}</a></li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <p><strong>Modified:</strong> {new Date(event.modified).toLocaleDateString()}</p>
-              <p><strong>Start:</strong> {new Date(event.start).toLocaleDateString()}</p>
-              <p><strong>End:</strong> {new Date(event.end).toLocaleDateString()}</p>
-            </li>
-          ))}
-        </ul> */}
-        {/* <button onClick={handleFavoritesClick}>Favorites</button> */}
-      </section>
-      {/* Add temp image to the Aside part of the page */}
-        <div className="containerEventImage">
-          <img src="./src/assets/images/CaptainMarvel.jpg" alt="Captain Marvel Image"/>
-        </div>
-      
-      {/* Add title of page to the footer */}
-      <footer>
-      <h1 className="PageTitle">EVENTS</h1>
-      </footer>
-     </div>
-  );
+         <h3>Events:</h3>
+         <ul>
+           {events.length > 0 ? (
+             events.map((events, index) => {
+               return <li key={index}>{events.split("%")[0]}</li>
+             })
+           ) : (
+             <p>No events available for this character.</p>
+           )}
+         </ul>
+       </div>
+     )}
+     {/* Add temp image to the Aside part of the page */}
+     <aside>
+       <div className="containerImage">
+         <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+       </div>
+     </aside>
+   </div>
+ );
 };
 
 export default EventsPage;

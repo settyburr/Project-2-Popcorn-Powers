@@ -1,101 +1,95 @@
-import { useEffect, useState, useRef } from "react";
-import sound from "../assets/backgroundSound/theme.ogg";
+import { useState } from "react";
+import { retrieveSeries } from "../api/marvelAPI";
+import { MarvelCharacter } from "../interfaces/HeroData";
+import ErrorPage from "./ErrorPage";
 
 const SeriesPage = () => {
-    const userIds = ['Spiderman', 'Iron Man', 'Deadpool', 'Captain Marvel']; // Example list of hero names
+   // State to handle the search term, character data, loading, and errors
+ const [searchTerm, setSearchTerm] = useState('');
+ const [character, setCharacter] = useState<MarvelCharacter | null>(null);
+ const [series, setSeries] = useState<string[]>([]);
+ const [loading, setLoading] = useState<boolean>(false);
+ const [error, setError] = useState<string | null>(null);
 
-    const [series, setSeries] = useState([]);
-    const [title, setTitle] = useState('Marvel Universe');
-    const [isPlaying, setIsPlaying] = useState(false); // To track audio play state
-    const audioRef = useRef(null); // Ref to the audio element
+ // Function to handle the search term change
+ const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   setSearchTerm(event.target.value);
+ };
 
-    // Function to fetch series data
-    const fetchUsers = async () => {
-        try {
-            const response = await fetch('/hero/series');  // Adjusted endpoint
-            const data = await response.json();
-            setSeries(data);
-        } catch (error) {
-            console.error("Error fetching series:", error);
-        }
-    };
+ // Function to handle the search button click
+ const handleSearchClick = async () => {
+   if (!searchTerm) return; // Don't fetch if search term is empty
 
-    // Handles button click event to update title
-    const handleClick = () => {
-        console.log('Button was clicked!');
-        setTitle('Hero movies recommended: ' + userIds.join(', ')); // Update title with selected heroes
-    };
+   setLoading(true);
+   setError(null); // Reset error state before fetching
 
-    // Toggle audio play/pause when the "Play Sound" button is clicked
-    const toggleAudioPlayback = () => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-            } else {
-                audioRef.current.play();
-            }
-            setIsPlaying(!isPlaying); 
-        }
-    };
+   try {
+     const data = await retrieveSeries(searchTerm);
+   
+     if (data.series && data.series.length > 0) {
+       let characterData = data; // Assuming the first character is the desired one
+       setCharacter(characterData);
+       characterData = characterData.series.map((character: { name: object; resourceURI: object}) => {
+         return character.name + "%" + character.resourceURI;
+       })
+       setSeries(characterData);
+     } else {
+       setError('Character not found.');
+     }
+   } catch (err) {
+     setError('An error occurred while fetching data.');
+   } finally {
+     setLoading(false);
+   }
+ };
+ return (
+   <div>
+     <h1>Marvel Series Search</h1>
+     
+     {/* Search bar */}
+     <input
+       type="text"
+       placeholder="Search for a Marvel char..."
+       value={searchTerm}
+       onChange={handleSearchChange}
+     />
+     
+     {/* Search button */}
+     <button onClick={handleSearchClick}>Search</button>
 
-    // Fetch data once on component mount
-    useEffect(() => {
-        fetchUsers();
-        console.log(series)
-    }, [series]); 
+     {/* Show loading state */}
+     {loading && <p>Loading...</p>}
 
-    // Log the series whenever it changes
-    useEffect(() => {
-        console.log(series); // Logs when series changes
-    }, [series]);
+     {/* Show error message */}
+     {error && <ErrorPage />}
 
-    return (
-        <div>
-            <h1>{title}</h1>
+     {/* Show character details if available */}
+     {character && !loading && !error && (
+       <div>
+         <h2>{character.name}</h2>
+         <p>{character.description || 'No description available.'}</p>
 
-            {/* "Search" button to update title only, without playing audio */}
-            <button onClick={handleClick}>Series</button>
-                {/* Render the list of users */}
-                <h2>The Avengers</h2>
-                <h2>Spider-Man</h2>
-                <h2>Captain Marvel</h2>
-                <h2>Iron Man</h2>
-                <h2>Deadpool</h2>
-
-                <div>
-                
-                </div>
-
-            {/* Audio controls */}
-            <div>
-                <button onClick={toggleAudioPlayback}>
-                    {isPlaying ? 'Pause Sound' : 'Avengers Assemble'}
-                </button>
-                <audio ref={audioRef} preload="auto" loop>
-                    <source src={sound} type="audio/ogg" />
-                </audio>
-            </div>
-
-            {/* Render the list of series */}
-            <div>
-                <ul>
-                    {series.map((hero) => (
-                        <li key={hero.id}>{hero.name}</li>
-                    ))}
-                </ul>
-            </div>
-            {/* Add temp image to the Aside part of the page */}
-             <aside>
-                <div className="containerImage">
-                    <img src="./src/assets/images/spiderman4k.jpg" alt="Spiderman Image"/>
-                </div>
-             </aside>
-            {/*Add footer for title page */}
-            <footer>
-            <h1 className="PageTitle">SERIES</h1>
-            </footer>
-        </div>
-    );
+         <h3>Series:</h3>
+         <ul>
+           {series.length > 0 ? (
+             series.map((series, index) => {
+               return <li key={index}>{series.split("%")[0]}</li>
+             })
+           ) : (
+             <p>No series available for this character.</p>
+           )}
+         </ul>
+       </div>
+     )}
+     {/* Add temp image to the Aside part of the page */}
+     <aside>
+       <div className="containerImage">
+         <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+       </div>
+     </aside>
+   </div>
+ );
 };
+
 
 export default SeriesPage;

@@ -12,6 +12,14 @@
   /* 2 */
 }
 
+
+/* Add Font Family - Fantasy */
+
+#root {
+  font-family: 'Copperplate', 'Comic Sans MS', fantasy; /* Fallbacks included */
+  font-size: 18px;
+}
+
 /* Sections
    ========================================================================== */
 /**
@@ -137,6 +145,7 @@ h1 {
   width: 100%;                     /* Full width of the parent */
   border-collapse: collapse;       /* Collapses the borders */
   align-items: center;
+  font-size:10px;
 }
 
 th, td {

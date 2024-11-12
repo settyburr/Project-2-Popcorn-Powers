@@ -3,6 +3,10 @@ import { useState, type FormEvent, type ChangeEvent } from 'react';
 import Auth from '../utils/auth';
 import { login } from '../api/authAPI';
 import type { UserLogin } from '../interfaces/UserLogin';
+import deadpool from "../assets/images/deadpool.png"
+import marvel from "../assets/images/CaptainMarvel.jpg"
+import ironman from "../assets/images/IronMan.jpg"
+import spiderman from "../assets/images/spidermanjacket.jpg"
 
 const Login = () => {
   const [loginData, setLoginData] = useState<UserLogin>({
@@ -63,16 +67,16 @@ const Login = () => {
       {/* Add temp image to the Aside part of the page */}
       <aside>
       <div className="LoginContainer">
-       <img src="./src/assets/images/IronMan.jpg" alt="Iron Man Image"/>
+       <img src={ironman} alt="Iron Man Image"/>
       </div>
       <div className="LoginContainer">
-       <img src="./src/assets/images/CaptainMarvel.jpg" alt="Captain Marvel Image"/>
+       <img src={marvel} alt="Captain Marvel Image"/>
       </div>
       <div className="LoginContainer">
-       <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+       <img src={deadpool} alt="Deadpool Image"/>
       </div>
       <div className="LoginContainer">
-       <img src="./src/assets/images/spidermanjacket.jpg" alt="Spiderman Image"/>
+       <img src={spiderman} alt="Spiderman Image"/>
       </div>
       </aside>
       <section className="APIDetails"></section>

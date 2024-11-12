@@ -2,6 +2,7 @@ import { useState } from "react";
 import { retrieveComics } from "../api/marvelAPI";
 import { MarvelCharacter } from "../interfaces/HeroData";
 import ErrorPage from "./ErrorPage";
+import deadpool from "../assets/images/deadpool.png"
 
 const ComicsPage = () => {
   // State to handle the search term, character data, loading, and errors
@@ -85,7 +86,7 @@ console.log(comics);
       {/* Add temp image to the Aside part of the page */}
       <aside>
         <div className="containerImage">
-          <img src="./src/assets/images/deadpool.png" alt="Deadpool Image"/>
+          <img src={deadpool} alt="Deadpool Image"/>
         </div>
       </aside>
     </div>

@@ -3,6 +3,7 @@ import { retrieveSeries } from "../api/marvelAPI";
 import { MarvelCharacter } from "../interfaces/HeroData";
 import sound from "../assets/backgroundSound/theme.ogg";
 import ErrorPage from "./ErrorPage";
+import spiderman from "../assets/images/spidermanjacket.jpg"
 
 const SeriesPage = () => {
    // State to handle the search term, character data, loading, and errors
@@ -106,7 +107,7 @@ const SeriesPage = () => {
      {/* Add temp image to the Aside part of the page */}
      <aside>
        <div className="containerImage">
-         <img src="./src/assets/images/spiderman4k.jpg" alt="Spiderman Image"/>
+         <img src={spiderman} alt="Spiderman Image"/>
        </div>
      </aside>
    </div>

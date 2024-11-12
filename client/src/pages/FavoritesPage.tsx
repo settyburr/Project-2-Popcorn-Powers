@@ -1,3 +1,4 @@
+import ironman from "../assets/images/IronMan.jpg"
 const FavoritesPage = () => {
     return (
     <div>
@@ -5,7 +6,7 @@ const FavoritesPage = () => {
       {/* Add temp image to the Aside part of the page */}
       <aside>
         <div className="containerFAV">
-          <img src="./src/assets/images/IronMan.jpg" alt="Iron Man Image"/>
+          <img src={ironman} alt="Iron Man Image"/>
         </div>
       </aside>
       <section>

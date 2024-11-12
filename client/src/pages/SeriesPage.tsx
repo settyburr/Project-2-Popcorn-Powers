@@ -12,7 +12,7 @@ const SeriesPage = () => {
  const [loading, setLoading] = useState<boolean>(false);
  const [error, setError] = useState<string | null>(null);
  const [isPlaying, setIsPlaying] = useState(false); // To track audio play state
- const audioRef = useRef(null); // Ref to the audio element
+ const audioRef = useRef<HTMLAudioElement | null>(null); // Ref to the audio element
 
  // Function to handle the search term change
  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
